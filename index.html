@@ -307,11 +307,12 @@
 
         // Función para finalizar el pedido (enviar al WhatsApp)
 function finalizarPedido() {
-    let mensaje = "Pedido de Comida Rápida:\n\n";
+    let mensaje = "🌟 **Pedido de Comida Rápida** 🌟\n\n";
     carrito.forEach(item => {
-        mensaje += `${item.producto} - $${item.precio}\n`;
+        mensaje += `🍴 **${item.producto}** - $${item.precio}\n`;
     });
-    mensaje += `\nTotal: $${total}\n`;
+    mensaje += `\n💰 **Total: $${total}**\n\n`;
+    mensaje += "🛵 ¡Envíanos tu dirección y nos encargamos del resto!";
 
     // URL para enviar el pedido al WhatsApp
     const numeroWhatsapp = "+543513171961";
