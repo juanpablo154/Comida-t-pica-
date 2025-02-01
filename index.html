@@ -307,25 +307,39 @@
 
         // Función para finalizar el pedido (enviar al WhatsApp)
 function finalizarPedido() {
-    let mensaje = "🌟 **Pedido de Comida Rápida** 🌟\n\n";
-    carrito.forEach(item => {
-        mensaje += `🍴 **${item.producto}** - $${item.precio}\n`;
-    });
-    mensaje += `\n💰 **Total: $${total}**\n\n`;
-    mensaje += "🛵 ¡Envíanos tu dirección y nos encargamos del resto!";
+    // Obtener la hora actual
+    const ahora = new Date();
+    const horaActual = ahora.getHours();
+    
+    // Definir el horario de atención (de 10:00 AM a 8:00 PM)
+    const horaInicio = 11; // 10:00 AM
+    const horaFin = 15; // 8:00 PM
 
-    // URL para enviar el pedido al WhatsApp
-    const numeroWhatsapp = "+543513171961";
-    const url = `https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(mensaje)}`;
+    // Verificar si la hora actual está dentro del horario permitido
+    if (horaActual >= horaInicio && horaActual < horaFin) {
+        let mensaje = "🌟 **Pedido de Comida Rápida** 🌟\n\n";
+        carrito.forEach(item => {
+            mensaje += `🍴 **${item.producto}** - $${item.precio}\n`;
+        });
+        mensaje += `\n💰 **Total: $${total}**\n\n`;
+        mensaje += "🛵 ¡Envíanos tu dirección y nos encargamos del resto!";
 
-    // Abrir el enlace para enviar el pedido al WhatsApp
-    window.open(url, "_blank");
+        // URL para enviar el pedido al WhatsApp
+        const numeroWhatsapp = "+543513171961";
+        const url = `https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(mensaje)}`;
 
-    // Limpiar el carrito después de enviar el pedido
-    carrito = [];
-    total = 0;
-    document.getElementById('totalCarrito').innerText = `Total: $${total}`;
-    cerrarCarrito();
+        // Abrir el enlace para enviar el pedido al WhatsApp
+        window.open(url, "_blank");
+
+        // Limpiar el carrito después de enviar el pedido
+        carrito = [];
+        total = 0;
+        document.getElementById('totalCarrito').innerText = `Total: $${total}`;
+        cerrarCarrito();
+    } else {
+        // Si el pedido se hace fuera del horario permitido
+        alert("Lo siento, no estamos aceptando pedidos en este momento. Nuestro horario de atención es de 10:00 AM a 8:00 PM.");
+    }
 }
 
     </script>
