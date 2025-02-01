@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COMIDAS TIPICAD DE GABY</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background-color: #1e90ff;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+        }
+        .category {
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .category h2 {
+            margin-bottom: 10px;
+            color: #1e90ff;
+        }
+        .category ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .category ul li {
+            background-color: #fafafa;
+            padding: 10px;
+            border-bottom: 1px solid #e1e1e1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .category ul li:last-child {
+            border-bottom: none;
+        }
+        .price {
+            color: #ff6347;
+            font-weight: bold;
+        }
+        button {
+            background-color: #1e90ff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #007acc;
+        }
+        .cart {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #ff6347;
+            color: white;
+            padding: 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        footer {
+            background-color: #1e90ff;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+    <!-- Se importa el icono de carrito desde FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1>COMIDA TÍPICA DE GABY</h1>
+    </header>
+
+    <div class="container">
+        <!-- Sección de Empanadas -->
+        <div class="category" id="empanadas">
+            <h2>Empanadas</h2>
+            <ul>
+                <li>
+                    <span>Criollas</span>
+                    <span class="price">$9000</span>
+                    <button onclick="agregarAlCarrito('Empanada Criolla', 9000)">Agregar</button>
+                </li>
+                <li>
+                    <span>Árabes</span>
+                    <span class="price">$10000</span>
+                    <button onclick="agregarAlCarrito('Empanada Árabe', 10000)">Agregar</button>
+                </li>
+                <li>
+                    <span>Jamón y queso</span>
+                    <span class="price">$9000</span>
+                    <button onclick="agregarAlCarrito('Empanada Jamón y Queso', 9000)">Agregar</button>
+                </li>
+                <li>
+                    <span>Pollo</span>
+                    <span class="price">$9000</span>
+                    <button onclick="agregarAlCarrito('Empanada de Pollo', 9000)">Agregar</button>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Sección de Pizzas -->
+        <div class="category" id="pizzas">
+            <h2>Pizzas</h2>
+            <ul>
+                <li>
+                    <span>Muzza</span>
+                    <span class="price">$7000</span>
+                    <button onclick="agregarAlCarrito('Pizza Muzza', 7000)">Agregar</button>
+                </li>
+                <li>
+                    <span>Jamón y queso</span>
+                    <span class="price">$8000</span>
+                    <button onclick="agregarAlCarrito('Pizza Jamón y Queso', 8000)">Agregar</button>
+                </li>
+                <li>
+                    <span>Calabreza</span>
+                    <span class="price">$8000</span>
+                    <button onclick="agregarAlCarrito('Pizza Calabreza', 8000)">Agregar</button>
+                </li>
+                <li>
+                    <span>Fugazza</span>
+                    <span class="price">$8000</span>
+                    <button onclick="agregarAlCarrito('Pizza Fugazza', 8000)">Agregar</button>
+                </li>
+                <li>
+                    <span>Napolitana</span>
+                    <span class="price">$8000</span>
+                    <button onclick="agregarAlCarrito('Pizza Napolitana', 8000)">Agregar</button>
+                </li>
+                <li>
+                    <span>Con anchoas y morrón</span>
+                    <span class="price">$9000</span>
+                    <button onclick="agregarAlCarrito('Pizza Anchoas y Morrón', 9000)">Agregar</button>
+                </li>
+                <li>
+                    <span>Especial de la casa</span>
+                    <span class="price">$10000</span>
+                    <button onclick="agregarAlCarrito('Pizza Especial de la Casa', 10000)">Agregar</button>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Sección de Menú Principal -->
+        <div class="category" id="menu">
+            <h2>Menú Principal</h2>
+            <ul>
+                <li>
+                    <span>Pollo al horno con papas fritas o ensalada</span>
+                    <span class="price">$18000</span>
+                    <button onclick="agregarAlCarrito('Pollo al horno', 18000)">Agregar</button>
+                </li>
+                <li>
+                    <span>Pata muslo con papas fritas o ensalada</span>
+                    <span class="price">$7000</span>
+                    <button onclick="agregarAlCarrito('Pata Muslo', 7000)">Agregar</button>
+                </li>
+                <li>
+                    <span>Menú diario</span>
+                    <span class="price">$6500</span>
+                    <button onclick="agregarAlCarrito('Menú Diario', 6500)">Agregar</button>
+                </li>
+                <li>
+                    <span>Menú saludable</span>
+                    <span class="price">$8000</span>
+                    <button onclick="agregarAlCarrito('Menú Saludable', 8000)">Agregar</button>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Sección de Sándwiches de Milanesa -->
+        <div class="category" id="sandwiches">
+            <h2>Sándwiches de Milanesa</h2>
+            <ul>
+                <li>
+                    <span>Sándwich de milanesa simple (tomate y lechuga, sin papas fritas)</span>
+                    <span class="price">$6000</span>
+                    <button onclick="agregarAlCarrito('Sándwich de Milanesa Simple', 6000)">Agregar</button>
+                </li>
+                <li>
+                    <span>Sándwich de milanesa simple (tomate y lechuga, con papas fritas)</span>
+                    <span class="price">$7000</span>
+                    <button onclick="agregarAlCarrito('Sándwich de Milanesa Simple con Papas', 7000)">Agregar</button>
+                </li>
+                <li>
+                    <span>Sándwich de milanesa completo (tomate, lechuga, jamón, queso, huevo) con papas fritas</span>
+                    <span class="price">$8500</span>
+                    <button onclick="agregarAlCarrito('Sándwich Milanesa Completo', 8500)">Agregar</button>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- Carrito con icono de FontAwesome -->
+    <div class="cart" onclick="mostrarCarrito()">
+        <i class="fas fa-shopping-cart"></i>
+    </div>
+
+    
+        
+
+    <script>
+        let carrito = [];
+        let total = 0;
+
+        // Función para agregar un producto al carrito
+        function agregarAlCarrito(producto, precio) {
+            // Agregar el producto al carrito
+            carrito.push({producto, precio});
+            total += precio;
+
+            // Actualizar el icono del carrito para mostrar el total
+            document.getElementById('totalCarrito').innerText = `Total: $${total}`;
+        }
+
+        // Función para mostrar el carrito
+        function mostrarCarrito() {
+            let carritoHTML = '<h2>Carrito de compras</h2>';
+            if (carrito.length === 0) {
+                carritoHTML += '<p>El carrito está vacío.</p>';
+            } else {
+                carritoHTML += '<ul>';
+                carrito.forEach(item => {
+                    carritoHTML += `<li>${item.producto} - $${item.precio}</li>`;
+                });
+                carritoHTML += '</ul>';
+                carritoHTML += `<p>Total: $${total}</p>`;
+                carritoHTML += `<button onclick="finalizarPedido()">Finalizar Pedido</button>`;
+            }
+
+            // Mostrar el carrito en un modal o ventana emergente
+            const carritoModal = document.createElement('div');
+            carritoModal.style.position = 'fixed';
+            carritoModal.style.top = '0';
+            carritoModal.style.left = '0';
+            carritoModal.style.width = '100%';
+            carritoModal.style.height = '100%';
+            carritoModal.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+            carritoModal.style.zIndex = '1000';
+            carritoModal.style.display = 'flex';
+            carritoModal.style.justifyContent = 'center';
+            carritoModal.style.alignItems = 'center';
+            carritoModal.innerHTML = `
+                <div style="background-color: white; padding: 20px; border-radius: 8px; max-width: 500px; width: 100%;">
+                    ${carritoHTML}
+                    <button onclick="cerrarCarrito()" style="margin-top: 20px;">Cerrar</button>
+                </div>
+            `;
+
+            document.body.appendChild(carritoModal);
+        }
+
+        // Función para cerrar el carrito
+        function cerrarCarrito() {
+            const carritoModal = document.querySelector('div[style*="position: fixed"]');
+            if (carritoModal) {
+                carritoModal.remove();
+            }
+        }
+
+        // Función para finalizar el pedido (enviar al WhatsApp)
+        function finalizarPedido() {
+            let mensaje = "Pedido de Comida Rápida:\n\n";
+            carrito.forEach(item => {
+                mensaje += `${item.producto} - $${item.precio}\n`;
+            });
+            mensaje += `\nTotal: $${total}\n\nEnvío a: [Nombre del cliente]`;
+
+            // URL para enviar el pedido al WhatsApp
+            const numeroWhatsapp = "+543513171961";
+            const url = `https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(mensaje)}`;
+
+            // Abrir el enlace para enviar el pedido al WhatsApp
+            window.open(url, "_blank");
+
+            // Limpiar el carrito después de enviar el pedido
+            carrito = [];
+            total = 0;
+            document.getElementById('totalCarrito').innerText = `Total: $${total}`;
+            cerrarCarrito();
+        }
+    </script>
+</body>
+</html>
