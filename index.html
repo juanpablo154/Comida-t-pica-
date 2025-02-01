@@ -306,26 +306,27 @@
         }
 
         // Función para finalizar el pedido (enviar al WhatsApp)
-        function finalizarPedido() {
-            let mensaje = "Pedido de Comida Rápida:\n\n";
-            carrito.forEach(item => {
-                mensaje += `${item.producto} - $${item.precio}\n`;
-            });
-            mensaje += `\nTotal: $${total}\n\
+function finalizarPedido() {
+    let mensaje = "Pedido de Comida Rápida:\n\n";
+    carrito.forEach(item => {
+        mensaje += `${item.producto} - $${item.precio}\n`;
+    });
+    mensaje += `\nTotal: $${total}\n`;
 
-            // URL para enviar el pedido al WhatsApp
-            const numeroWhatsapp = "+543513171961";
-            const url = `https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(mensaje)}`;
+    // URL para enviar el pedido al WhatsApp
+    const numeroWhatsapp = "+543513171961";
+    const url = `https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(mensaje)}`;
 
-            // Abrir el enlace para enviar el pedido al WhatsApp
-            window.open(url, "_blank");
+    // Abrir el enlace para enviar el pedido al WhatsApp
+    window.open(url, "_blank");
 
-            // Limpiar el carrito después de enviar el pedido
-            carrito = [];
-            total = 0;
-            document.getElementById('totalCarrito').innerText = `Total: $${total}`;
-            cerrarCarrito();
-        }
+    // Limpiar el carrito después de enviar el pedido
+    carrito = [];
+    total = 0;
+    document.getElementById('totalCarrito').innerText = `Total: $${total}`;
+    cerrarCarrito();
+}
+
     </script>
 </body>
 </html>
