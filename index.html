@@ -95,8 +95,8 @@
 
     <div class="container">
         <!-- Sección de Empanadas -->
-        <div class="category" id="empanadas">
-            <h2>Empanadas</h2>
+        <div class="category" id="empanadas se venden por docena">
+            <h2>Empanadas se venden por docena</h2>
             <ul>
                 <li>
                     <span>Criollas</span>
@@ -247,107 +247,137 @@
     </div>
 
     <script>
-        let carrito = [];
-        let total = 0;
+    let carrito = [];
+    let total = 0;
 
-        // Función para agregar un producto al carrito
-        function agregarAlCarrito(producto, precio) {
-            // Agregar el producto al carrito
-            carrito.push({producto, precio});
-            total += precio;
+    // Función para agregar un producto al carrito
+    function agregarAlCarrito(producto, precio) {
+        carrito.push({producto, precio});
+        total += precio;
 
-            // Actualizar el icono del carrito para mostrar el total
-            document.getElementById('totalCarrito').innerText = `Total: $${total}`;
+        // Actualizar el icono del carrito para mostrar el total
+        document.getElementById('totalCarrito').innerText = `Total: $${total}`;
+    }
+
+    // Función para mostrar el carrito
+    function mostrarCarrito() {
+        let carritoHTML = '<h2>Carrito de compras</h2>';
+        if (carrito.length === 0) {
+            carritoHTML += '<p>El carrito está vacío.</p>';
+        } else {
+            carritoHTML += '<ul>';
+            carrito.forEach(item => {
+                carritoHTML += `<li>${item.producto} - $${item.precio}</li>`;
+            });
+            carritoHTML += '</ul>';
+            carritoHTML += `<p>Total: $${total}</p>`;
+            carritoHTML += `<button onclick="finalizarPedido()">Finalizar Pedido</button>`;
         }
 
-        // Función para mostrar el carrito
-        function mostrarCarrito() {
-            let carritoHTML = '<h2>Carrito de compras</h2>';
-            if (carrito.length === 0) {
-                carritoHTML += '<p>El carrito está vacío.</p>';
-            } else {
-                carritoHTML += '<ul>';
-                carrito.forEach(item => {
-                    carritoHTML += `<li>${item.producto} - $${item.precio}</li>`;
-                });
-                carritoHTML += '</ul>';
-                carritoHTML += `<p>Total: $${total}</p>`;
-                carritoHTML += `<button onclick="finalizarPedido()">Finalizar Pedido</button>`;
-            }
+        // Mostrar el carrito en un modal o ventana emergente
+        const carritoModal = document.createElement('div');
+        carritoModal.style.position = 'fixed';
+        carritoModal.style.top = '0';
+        carritoModal.style.left = '0';
+        carritoModal.style.width = '100%';
+        carritoModal.style.height = '100%';
+        carritoModal.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+        carritoModal.style.zIndex = '1000';
+        carritoModal.style.display = 'flex';
+        carritoModal.style.justifyContent = 'center';
+        carritoModal.style.alignItems = 'center';
+        carritoModal.innerHTML = `
+            <div style="background-color: white; padding: 20px; border-radius: 8px; max-width: 500px; width: 100%;">
+                ${carritoHTML}
+                <button onclick="cerrarCarrito()" style="margin-top: 20px;">Cerrar</button>
+            </div>
+        `;
 
-            // Mostrar el carrito en un modal o ventana emergente
-            const carritoModal = document.createElement('div');
-            carritoModal.style.position = 'fixed';
-            carritoModal.style.top = '0';
-            carritoModal.style.left = '0';
-            carritoModal.style.width = '100%';
-            carritoModal.style.height = '100%';
-            carritoModal.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-            carritoModal.style.zIndex = '1000';
-            carritoModal.style.display = 'flex';
-            carritoModal.style.justifyContent = 'center';
-            carritoModal.style.alignItems = 'center';
-            carritoModal.innerHTML = `
-                <div style="background-color: white; padding: 20px; border-radius: 8px; max-width: 500px; width: 100%;">
-                    ${carritoHTML}
-                    <button onclick="cerrarCarrito()" style="margin-top: 20px;">Cerrar</button>
-                </div>
-            `;
+        document.body.appendChild(carritoModal);
+    }
 
-            document.body.appendChild(carritoModal);
+    // Función para cerrar el carrito
+    function cerrarCarrito() {
+        const carritoModal = document.querySelector('div[style*="position: fixed"]');
+        if (carritoModal) {
+            carritoModal.remove();
         }
+    }
 
-        // Función para cerrar el carrito
-        function cerrarCarrito() {
-            const carritoModal = document.querySelector('div[style*="position: fixed"]');
-            if (carritoModal) {
-                carritoModal.remove();
-            }
-        }
+    // Función para finalizar el pedido (enviar al WhatsApp)
+    function finalizarPedido() {
+        const ahora = new Date();
+        const horaActual = ahora.getHours();
+        const minutosActuales = ahora.getMinutes();
+        const diaSemana = ahora.getDay(); // 0 = Domingo, 1 = Lunes, ..., 6 = Sábado
 
-        // Función para finalizar el pedido (enviar al WhatsApp)
-        function finalizarPedido() {
-            // Obtener la hora actual
-            const ahora = new Date();
-            const horaActual = ahora.getHours();
-            const minutosActuales = ahora.getMinutes();
-            
-            // Definir el horario de atención (de 19:00 PM a 23:30 PM)
-            const horaInicio = 19; // 19:00 PM
-            const horaFin = 23; // 23:30 PM (si es 23:30, tenemos que hacer una comprobación adicional)
-            const minutosFin = 30; // 23:30 PM
+        // Horarios de lunes a viernes (18:30 - 23:00)
+        const horaInicioSemana = 18; // 18:30 PM (inicia a las 18:30)
+        const minutosInicioSemana = 30;
+        const horaFinSemana = 23; // 23:00 PM
+        const minutosFinSemana = 0;
 
-            // Verificar si la hora actual está dentro del horario permitido
-            if (horaActual > horaInicio || (horaActual === horaInicio && minutosActuales >= 0)) {
-                if (horaActual < horaFin || (horaActual === horaFin && minutosActuales <= minutosFin)) {
-                    let mensaje = "🌟 **Pedido de Comida Rápida** 🌟\n\n";
-                    carrito.forEach(item => {
-                        mensaje += `🍴 **${item.producto}** - $${item.precio}\n`;
-                    });
-                    mensaje += `\n💰 **Total: $${total}**\n\n`;
-                    mensaje += "🛵 ¡Envíanos tu dirección y nos encargamos del resto!";
+        // Horarios de fines de semana (Sábado y Domingo)
+        const horaInicioFinDeSemana = 10; // 10:00 AM
+        const minutosInicioFinDeSemana = 0;
+        const horaFinFinDeSemana = 14; // 14:00 PM
+        const minutosFinFinDeSemana = 0;
+        const horaInicioNocheFinDeSemana = 18; // 18:30 PM (inicia a las 18:30)
+        const minutosInicioNocheFinDeSemana = 30;
+        const horaFinNocheFinDeSemana = 23; // 23:00 PM
+        const minutosFinNocheFinDeSemana = 0;
 
-                    // URL para enviar el pedido al WhatsApp
-                    const numeroWhatsapp = "+543513171961";
-                    const url = `https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(mensaje)}`;
+        // Lógica para verificar si está dentro del horario permitido
+        let dentroDeHorario = false;
 
-                    // Abrir el enlace para enviar el pedido al WhatsApp
-                    window.open(url, "_blank");
-
-                    // Limpiar el carrito después de enviar el pedido
-                    carrito = [];
-                    total = 0;
-                    document.getElementById('totalCarrito').innerText = `Total: $${total}`;
-                    cerrarCarrito();
-                } else {
-                    // Si el pedido se hace fuera del horario permitido
-                    alert("Lo siento, no estamos aceptando pedidos después de las 23:30 PM.");
+        if (diaSemana >= 1 && diaSemana <= 5) { // Lunes a Viernes
+            if (horaActual > horaInicioSemana || (horaActual === horaInicioSemana && minutosActuales >= minutosInicioSemana)) {
+                if (horaActual < horaFinSemana || (horaActual === horaFinSemana && minutosActuales <= minutosFinSemana)) {
+                    dentroDeHorario = true;
                 }
-            } else {
-                // Si el pedido se hace fuera del horario permitido
-                alert("Lo siento, no estamos aceptando pedidos antes de las 19:00 PM.");
+            }
+        } else if (diaSemana === 6 || diaSemana === 0) { // Sábado y Domingo
+            // Día y horario de la mañana (10:00 - 14:00)
+            if (horaActual > horaInicioFinDeSemana || (horaActual === horaInicioFinDeSemana && minutosActuales >= minutosInicioFinDeSemana)) {
+                if (horaActual < horaFinFinDeSemana || (horaActual === horaFinFinDeSemana && minutosActuales <= minutosFinFinDeSemana)) {
+                    dentroDeHorario = true;
+                }
+            }
+            // Día y horario de la tarde/noche (18:30 - 23:00)
+            if (!dentroDeHorario) {
+                if (horaActual > horaInicioNocheFinDeSemana || (horaActual === horaInicioNocheFinDeSemana && minutosActuales >= minutosInicioNocheFinDeSemana)) {
+                    if (horaActual < horaFinNocheFinDeSemana || (horaActual === horaFinNocheFinDeSemana && minutosActuales <= minutosFinNocheFinDeSemana)) {
+                        dentroDeHorario = true;
+                    }
+                }
             }
         }
+
+        // Si está dentro del horario
+        if (dentroDeHorario) {
+            let mensaje = " *Pedido de Comida de Gaby* \n\n";  // Nombre correcto para el pedido
+            carrito.forEach(item => {
+                mensaje += `🍴 **${item.producto}* - $${item.precio}\n`; // Usamos el emoji correcto
+            });
+            mensaje += `\n *Total: $${total}*\n\n`;
+            mensaje += " ¡Envíanos tu dirección y nos encargamos del resto!";  // Emoji de entrega
+
+            // URL para enviar el pedido al WhatsApp
+            const numeroWhatsapp = "+543513171961";
+            const url = `https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(mensaje)}`;
+
+            // Abrir el enlace para enviar el mensaje por WhatsApp
+            window.open(url, "_blank");
+
+            // Limpiar el carrito después de enviar el pedido
+            carrito = [];
+            total = 0;
+            document.getElementById('totalCarrito').innerText = `Total: $${total}`;
+            cerrarCarrito();
+        } else {
+            // Si el pedido se hace fuera del horario permitido
+            alert("Lo siento, no estamos aceptando pedidos en este horario. Por favor, verifica los horarios de atención.");
+        }
+    }
     </script>
-</body>
-</html>
+    
