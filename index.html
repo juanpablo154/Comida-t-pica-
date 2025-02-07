@@ -355,12 +355,12 @@
 
         // Si está dentro del horario
         if (dentroDeHorario) {
-            let mensaje = " *Pedido de Comida de Gaby* \n\n";  // Nombre correcto para el pedido
+            let mensaje = "🌟 **Pedido de Comida de Gaby** 🌟\n\n";  // Nombre correcto para el pedido
             carrito.forEach(item => {
-                mensaje += `🍴 **${item.producto}* - $${item.precio}\n`; // Usamos el emoji correcto
+                mensaje += `🍴 **${item.producto}** - $${item.precio}\n`; // Usamos el emoji correcto
             });
-            mensaje += `\n *Total: $${total}*\n\n`;
-            mensaje += " ¡Envíanos tu dirección y nos encargamos del resto!";  // Emoji de entrega
+            mensaje += `\n💰 **Total: $${total}**\n\n`;
+            mensaje += "🛵 ¡Envíanos tu dirección y nos encargamos del resto!";  // Emoji de entrega
 
             // URL para enviar el pedido al WhatsApp
             const numeroWhatsapp = "+543513171961";
@@ -376,7 +376,18 @@
             cerrarCarrito();
         } else {
             // Si el pedido se hace fuera del horario permitido
-            alert("Lo siento, no estamos aceptando pedidos en este horario. Por favor, verifica los horarios de atención.");
+            let mensajeHorario = `
+                Lo siento, no estamos aceptando pedidos en este horario. 
+                Los horarios de atención son los siguientes:
+
+                - Lunes a Viernes: 18:30 a 23:00
+                - Sábados y Domingos: 
+                    - 10:00 a 14:00
+                    - 18:30 a 23:00
+                
+                Por favor, realiza tu pedido dentro de estos horarios. ¡Gracias!
+            `;
+            alert(mensajeHorario);
         }
     }
     </script>
